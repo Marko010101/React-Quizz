@@ -1,5 +1,7 @@
 import { useEffect, useReducer } from "react";
 
+// import quizData from "../../data/quizData.js";
+
 import Header from "./Header.js";
 import Main from "./Main.js";
 import Loader from "./Loader.js";
@@ -98,7 +100,8 @@ export default function App() {
     0
   );
 
-  useEffect(function () {
+  //In case there is any problem with fetching data from the database, it is also possible to fetch data from localhost.
+  /*   useEffect(function () {
     fetch("http://localhost:9000/questions")
       .then((res) => res.json())
       .then((data) => dispatch({ type: "dataReceived", payload: data }))
@@ -107,6 +110,26 @@ export default function App() {
           type: "dataFailed",
         })
       );
+  }, []); */
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://react-quizz-3dc43-default-rtdb.europe-west1.firebasedatabase.app/questions.json"
+        );
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        const data = await response.json();
+        dispatch({ type: "dataReceived", payload: data });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        dispatch({ type: "dataFailed" });
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

@@ -4,9 +4,9 @@ React Quiz is an application where users can participate in a quiz consisting of
 
 ## How the Project Works
 
-The project utilizes the `useReducer` hook to manage state. Here's an outline of its functionality:
+The project now utilizes the Context API along with the `useReducer` hook to manage state. Here's an outline of its functionality:
 
-- **Data Handling**: Data is uploaded to Firebase, and the application fetches it from there, handling errors if they occur. Additionally, the data is available as an object and in JSON format in the project folder named "data".
+- **Data Handling**: Data is fetched from a Firebase database and managed using the Context API. Upon mounting, the application fetches quiz data asynchronously, displaying a loader component during the loading process and handling errors if they occur.
 
 - **Quiz Interaction**: Once the data is successfully received, the quiz becomes ready to start. Users can then progress through the quiz, one question at a time. The progress bar indicates the current question number out of 15, along with the points earned from correct answers.
 
